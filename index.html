@@ -12,7 +12,7 @@
       AFRAME.registerComponent('clickhandler', {
           init: function() {
               this.el.addEventListener('click', () => {
-                  alert('Clicked!')
+                  alert("clicked")
               });
       }});
   </script>
@@ -29,7 +29,7 @@
         material="color: red;"
         value="Aditya"
         look-at="[gps-camera]"
-        scale="20 20 20"
+        scale="10 10 10"
         gps-entity-place="latitude: 27.027144; longitude: 85.004330;"
       ></a-text>
       <a-camera gps-camera rotation-reader> </a-camera>
