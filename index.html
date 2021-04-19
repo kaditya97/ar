@@ -33,7 +33,7 @@
         value="Aditya"
         look-at="[gps-camera]"
         scale="10 10 10"
-        gps-entity-place="latitude: 27.262892; longitude: 83.981767;"
+        gps-entity-place="latitude: 28.262892; longitude: 83.981767;"
       ></a-text>
       <a-camera gps-camera rotation-reader> </a-camera>
     </a-scene>
@@ -59,6 +59,8 @@
     userLocation();
     console.log([lat, lng]);
     $("#mytext").attr("gps-entity-place",`latitude: ${lat}; longitude: ${lng};`);
+    const distanceMsg = document.querySelector('[gps-entity-place]').getAttribute('distanceMsg');
+    console.log(distanceMsg); 
   }
 </script>
 
