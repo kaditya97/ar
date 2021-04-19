@@ -1,38 +1,64 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>GeoAR.js demo</title>
-    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-  </head>
-  <script>
-      AFRAME.registerComponent('clickhandler', {
-          init: function() {
-              this.el.addEventListener('click', () => {
-                  alert("clicked")
-              });
-      }});
-  </script>
-  <body style="margin: 0; overflow: hidden;">
-    <a-scene
-        cursor='rayOrigin: mouse; fuse: true; fuseTimeout: 0;'
-        raycaster="objects: [clickhandler];"
-        vr-mode-ui="enabled: false"
-		embedded
-		arjs='sourceType: webcam; debugUIEnabled: false;'>
-      
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>GeoAR.js demo</title>
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+</head>
+<script>
+  AFRAME.registerComponent('clickhandler', {
+    init: function () {
+      this.el.addEventListener('click', () => {
+        alert("clicked")
+      });
+    }
+  });
+</script>
+<body style="margin: 0; overflow: hidden;" onload="locationed()">
+  <a-scene
+      cursor="rayOrigin: mouse; fuse: true; fuseTimeout: 0;"
+      raycaster="objects: [clickhandler];"
+      vr-mode-ui="enabled: false"
+      embedded
+      arjs="sourceType: webcam; debugUIEnabled: false;">
+
       <a-text
         clickhandler
         material="color: red;"
         value="Aditya"
         look-at="[gps-camera]"
         scale="10 10 10"
-        gps-entity-place="latitude: 28.262892; longitude: 83.981767;"
+        gps-entity-place="latitude: 27.262892; longitude: 83.981767;"
       ></a-text>
       <a-camera gps-camera rotation-reader> </a-camera>
     </a-scene>
-  </body>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+  function locationed(){
+    let lng, lat;
+    function userLocation() {
+      if (navigator.geolocation) {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(displayLocationInfo);
+        }
+        function displayLocationInfo(position) {
+          lng = position.coords.longitude;
+          lat = position.coords.latitude;
+          console.log([lat, lng])
+        }
+      } else {
+        console.log('You dont have geolocation');
+      }
+    };
+    userLocation();
+    var atext = document.getElementsByTagName("a-text");
+    atext[0].setAttribute("gps-entity-place",`latitude: ${lat}; longitude: ${lng};`);
+  }
+</script>
+
 </html>
